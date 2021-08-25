@@ -10,7 +10,7 @@ const PORT = 5000;
 const database = [
     {
         message: "This is a starter message",
-        id: "1"
+        _id: "1"
     }
 ];
 class ToDoItem {
@@ -48,8 +48,11 @@ app.get('/todo', (req, res, next) => {
 
 // UPDATE todo item
 app.put('/todo/item', (req, res, next) => {
+    // console.log(req.body);
     const newItem = new ToDoItem(req.body.message, req.body.id);
-    const index = database.findIndex((item) => item._id === newItem._id);
+    // console.log(newItem);
+    const index = database.findIndex(item => item._id === newItem._id);
+    console.log(index);
     if (index < 0) {
         next(new Error('Invalid ID'));
     } else {
@@ -58,6 +61,8 @@ app.put('/todo/item', (req, res, next) => {
         res.status(200).send({ "New Item": newItem, "Old Item": oldItem });
     }
 });
+
+
 
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`);
