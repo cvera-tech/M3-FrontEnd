@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lucky Seven</title>
+    <script src="lucky7.js" defer></script>
+    <link rel="stylesheet" src="lucky7.css">
+</head>
+<body>
+    <div id="div-game">
+        <h1>Lucky Seven</h1>
+        <label>
+            Starting Bet: <input type="text" id="input-bet" value="0">
+        </label>
+        <button id="button-play">Play</button>
+    </div>
+    <div id="div-results">
+        <hr>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Starting Bet</td>
+                    <td id="td-starting-bet"></td>
+                </tr>
+                <tr>
+                    <td>Total Rolls Before Going Broke</td>
+                    <td id="td-total-rolls"></td>
+                </tr>
+                <tr>
+                    <td>Highest Amount Won</td>
+                    <td id="td-highest"></td>
+                </tr>
+                <tr>
+                    <td>Roll Count at Highest Amount Won</td>
+                    <td id="td-highest-rolls"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
