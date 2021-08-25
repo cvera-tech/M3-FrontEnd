@@ -7,11 +7,20 @@ const app = express();
 
 // Constants
 const PORT = 5000;
-const database = [];
+const database = [
+    {
+        message: "This is a starter message",
+        id: "1"
+    }
+];
 class ToDoItem {
-    constructor(message) {
+    constructor(message, id = uuidv4()) {
         this.message = message;
-        this._id = uuidv4();
+        if (id === undefined) {
+            this._id = uuidv4();
+        } else {
+            this._id = id;
+        }
     }
 }
 
@@ -20,6 +29,7 @@ app.use(express.json());
 app.use(morgan('dev'));
 
 // Routes
+// CREATE todo item
 app.post('/todo/item', (req, res, next) => {
     const newItem = new ToDoItem(req.body.message);
     database.push(newItem);
@@ -31,8 +41,22 @@ app.post('/todo/item', (req, res, next) => {
     res.status(201).send(responseBody);
 });
 
+// GET todo list
 app.get('/todo', (req, res, next) => {
     res.status(200).send(database);
+});
+
+// UPDATE todo item
+app.put('/todo/item', (req, res, next) => {
+    const newItem = new ToDoItem(req.body.message, req.body.id);
+    const index = database.findIndex((item) => item._id === newItem._id);
+    if (index < 0) {
+        next(new Error('Invalid ID'));
+    } else {
+        const oldItem = database[index];
+        database[index] = newItem;
+        res.status(200).send({ "New Item": newItem, "Old Item": oldItem });
+    }
 });
 
 app.listen(PORT, () => {
