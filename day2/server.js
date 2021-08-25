@@ -1,7 +1,7 @@
 // import { ToDoItem } from './ToDoItem.js';
 const express = require('express');
 const morgan = require('morgan');
-const { v4:uuidv4 } = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 const app = express();
 
 
@@ -16,7 +16,7 @@ const database = [
 class ToDoItem {
     constructor(message, id = uuidv4()) {
         this.message = message;
-        if (id === undefined) {
+        if (id === undefined || id === null || id === '') {
             this._id = uuidv4();
         } else {
             this._id = id;
@@ -62,6 +62,28 @@ app.put('/todo/item', (req, res, next) => {
     }
 });
 
+// DELETE todo item
+app.delete('/todo/item', (req, res, next) => {
+    const index = database.findIndex(item => item._id === req.body.id);
+    if (index < 0) {
+        next(new Error('Invalid ID'));
+    } else {
+        const deletedItem = database[index];
+        database.splice(index, 1);
+        res.status(200).send({ "Deleted Item": deletedItem});
+    }
+});
+
+// GET todo item
+app.get('/todo/item/:id', (req, res, next) => {
+    const index = database.findIndex(item => item._id === req.params.id);
+    if (index < 0) {
+        next(new Error('Invalid ID'));
+    } else {
+        const item = database[index];
+        res.status(200).send(item);
+    }
+});
 
 
 app.listen(PORT, () => {
