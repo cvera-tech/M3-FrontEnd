@@ -6,10 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Socket.IO chat</title>
 
-    <link rel="stylesheet" href="css/index.css">
+    <!-- 
+        We need to reference the parent directory, because we set the route for
+        this page to be /chat/. The static folder can be accessed in the / endpoint.-->
+    <link rel="stylesheet" href="../css/chat.css">
+    <!-- <link rel="stylesheet" href="css/chat.css"> -->
 
     <script src="/socket.io/socket.io.js" defer></script>
-    <script src="js/index.js" defer></script>
+    <script src="../js/chat.js" defer></script>
+    <!-- <script src="js/chat.js" defer></script> -->
 </head>
 <body>
     <ul id="messages"></ul>
