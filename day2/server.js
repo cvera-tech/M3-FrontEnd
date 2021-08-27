@@ -85,6 +85,11 @@ app.get('/todo/item/:id', (req, res, next) => {
     }
 });
 
+// Default error handler
+app.use(function (err, req, res, next) {
+    console.error(err.stack);
+    res.status(500).send(err.message);
+});
 
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`);
